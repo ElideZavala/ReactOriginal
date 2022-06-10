@@ -1,19 +1,25 @@
 import React, { useReducer, useState } from 'react'
+
+// Objeto que almacenara los distipos tipos de actions.]
+const TYPES = {
+	INCREMENT: 'INCREMENT',
+	DECREMENT: 'DECREMENT',
+	RESET: 'RESET'
+} 
  
 const reducer = (state, action) => {
-	if(action.type === 'increment') {
-		return state + 1;
-	}  
+	switch(action.type) {
+		case TYPES.INCREMENT: 
+			return state + 1;
+		case TYPES.DECREMENT:
+			return state - 1;
+		case TYPES.RESET: 
+			return 0;
 
-	if(action.type === 'decrement') {
-		return state - 1;
+			default: 
+				return state;
+
 	}
-
-	if(action.type === 'reset') {
-		return 0
-	}
-
-	return state;
 }
 
 const CounterAPP = () => {
@@ -23,13 +29,13 @@ const CounterAPP = () => {
   return (
 	 <div>
 		<h1>Clicks: {counter}</h1>
-		<button style={{margin: "2rem"}} onClick={() => dispatch({ type: 'increment'}) }>
+		<button style={{margin: "2rem"}} onClick={() => dispatch({ type: TYPES.INCREMENT}) }>
 			Increment
 		</button>
-		<button style={{margin: "2rem"}} onClick={() => dispatch({ type: 'decrement'}) }>
+		<button style={{margin: "2rem"}} onClick={() => dispatch({ type: TYPES.DECREMENT}) }>
 			Decrement
 		</button>
-		<button style={{margin: "2rem"}} onClick={() => dispatch({ type: 'reset'}) }>
+		<button style={{margin: "2rem"}} onClick={() => dispatch({ type: TYPES.RESET}) }>
 			Reset
 		</button>
 	 </div>
