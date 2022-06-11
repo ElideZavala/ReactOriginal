@@ -37,10 +37,16 @@ const ProductApp = () => {
 				<li key={product.id}>
 					{product.title} - quantity: {product.quantity}
 					<button onClick={() => dispatch({
+						type: types.PRODUCT_REMOVE_ONE_FORM_CART,
+						payload: product.id
+					})}>
+						Remove one
+					</button>
+					<button onClick={() => dispatch({
 						type: types.PRODUCT_REMOVE_FORM_CART,
 						payload: product.id
 					})}>
-						Remove from cart
+						Remove all
 					</button>
 				</li>
 			))}
