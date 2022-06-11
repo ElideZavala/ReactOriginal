@@ -1,6 +1,12 @@
-
+import { useReducer } from "react";
+import productReducer, { initialProductState } from "./reducers/productReducer";
 
 const ProductApp = () => {
+	const [productState, dispatch] = useReducer( productReducer, initialProductState );
+
+	// Extraer lo que necesitamos en el componente
+	const { products, cart, activeProduct } = productState;
+
   return (
 	 <div>
 		<h2>Product</h2>
@@ -22,6 +28,8 @@ const ProductApp = () => {
 				</button>
 			</li>
 		</ul>
+
+		<h2>Preview</h2>
 	 </div>
   )
 }
