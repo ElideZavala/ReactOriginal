@@ -35,7 +35,7 @@ const ProductApp = () => {
 		<ul>
 			{cart.map( product => (
 				<li key={product.id}>
-					{product.title}
+					{product.title} - quantity: {product.quantity}
 					<button onClick={() => dispatch({
 						type: types.PRODUCT_REMOVE_FORM_CART,
 						payload: product.id

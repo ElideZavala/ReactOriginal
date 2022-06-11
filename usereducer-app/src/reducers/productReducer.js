@@ -19,13 +19,29 @@ const productReducer = (state, action) => {
 				// Mostramos el producto actual, no es necesario mandar el ID, lo actualizamos al nuevo producto.  
 				activeProduct: action.payload
 			}
-		case types.PRODUCT_ADD_CART:
-			return { 
-				...state,
-				cart: [
-					...state.cart,
-					action.payload
-				]
+		case types.PRODUCT_ADD_CART:{
+			const newProduct = action.payload;
+			const cartContainProduct = state.cart.find(
+				product => product.id === newProduct.id
+			);
+
+			return cartContainProduct 
+				? { 
+					...state,
+					cart: state.cart.map(product => 
+						product.id === newProduct.id
+						? {...product, quantity: product.quantity + 1}	
+						: product
+					)
+				}
+				: { 
+					...state,
+					cart: [
+						...state.cart,
+						// Agregamos el producto al carrito, pero modificamos la cantidad de este.
+						{...action.payload, quantity: 1}
+					]
+				}
 			}
 		case types.PRODUCT_REMOVE_FORM_CART:
 			return {
