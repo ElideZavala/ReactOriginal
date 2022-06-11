@@ -1,9 +1,14 @@
-import CounterAPP from "./CounterAPP";
+// import CounterAPP from "./CounterAPP";
+// import TodoApp from "./TodoApp";
+import ProductApp from "./ProductApp";
+
 
 function App() {
   return (
     <div>
-      <CounterAPP/>
+      {/* <CounterAPP/> */}
+      {/* <TodoApp/> */}
+      <ProductApp/>
     </div>
   );
 }
