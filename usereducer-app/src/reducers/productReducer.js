@@ -1,3 +1,5 @@
+import types from "../types";
+
 const initialProductState = {
 	products: [
 		{ id: 1, title: "Product #1", price: 100 },
@@ -11,6 +13,21 @@ const initialProductState = {
 
 const productReducer = (state, action) => {
 	switch(action.type) {
+		case types.PRODUCTSHOW:
+			return {
+				...state,
+				// Mostramos el producto actual, no es necesario mandar el ID, lo actualizamos al nuevo producto.  
+				activeProduct: action.payload
+			}
+		case types.PRODUCT_ADD_CART:
+			return { 
+				...state,
+				cart: [
+					...state.cart,
+					action.payload
+				]
+			}
+
 		default:
 			return state;
 	}	
