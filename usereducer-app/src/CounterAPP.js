@@ -6,6 +6,12 @@ const TYPES = {
 	DECREMENT: 'DECREMENT',
 	RESET: 'RESET'
 } 
+
+const initialState = 10.25;
+
+const init = (value) => {
+	return parseInt(value)
+}
  
 const reducer = (state, action) => {
 	switch(action.type) {
@@ -14,7 +20,7 @@ const reducer = (state, action) => {
 		case TYPES.DECREMENT:
 			return state - 1;
 		case TYPES.RESET: 
-			return 0;
+			return init(initialState);
 
 			default: 
 				return state;
@@ -24,7 +30,7 @@ const reducer = (state, action) => {
 
 const CounterAPP = () => {
 
-	const [counter, dispatch] = useReducer(reducer, 0)
+	const [counter, dispatch] = useReducer(reducer, initialState, init)
 
   return (
 	 <div>
