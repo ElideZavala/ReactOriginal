@@ -1,13 +1,13 @@
 
-const Card = () => {
+const Card = ({ dog }) => {
   return (
 	 <div className="card">
 		<img 
-			src="https://breedingbusiness.com/wp-content/uploads/2020/02/music-dog-names.jpg"
+			src={dog.image}
 			alt="dog"
 		/>
 		<p>
-			Breed
+			{dog.breed.name}
 		</p>
 	 </div>
   )
