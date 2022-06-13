@@ -1,7 +1,11 @@
+import Spinner from './Spinner'
 
-const Card = ({ dog }) => {
+const Card = ({ dog, loading, updateDog }) => {
+
+	if(loading) return <Spinner />
+
   return (
-	 <div className="card">
+	 <div className="card" onClick={() => updateDog( dog.breed.id )}>
 		<img 
 			src={dog.image}
 			alt="dog"
