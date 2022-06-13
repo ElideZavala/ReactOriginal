@@ -18,8 +18,8 @@ function App() {
     updateDog();
   }, [])
 
-  const updateDog = () =>  {
-     getDog()
+  const updateDog = (breedId) =>  {
+     getDog(breedId)
     .then(newDog => {
       setDog(newDog)
     })
@@ -27,7 +27,7 @@ function App() {
 
   return (
     <div className="app">
-      <Select/>
+      <Select updateDog={updateDog}/>
       <Card dog={dog}/>
     </div>
   );
