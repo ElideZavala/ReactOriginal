@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# Proyecto de Razas de perro
+> 💻 [Link hacia la página del proyecto](https://aesthetic-jalebi-30137c.netlify.app/) 💻
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este Proyecto fue realizado con [React](https://reactjs.org/) usando la API de [TheDogAPI](https://docs.thedogapi.com/). 
 
-## Available Scripts
+##### Peticiones a la API **Optener todas las razas**
+``` JavaScript
+	const getBreeds = async () => {
+	const url = 'https://api.thedogapi.com/v1/breeds';
+	const res = await fetch(url);
 
-In the project directory, you can run:
+	if(!res.ok) {
+		const { url, status, statusText } = res;
+		throw Error(`Error: ${status} ${statusText} in fetch ${url}`);
+	}
 
-### `npm start`
+	const breeds = await res.json(); 
+	return breeds;
+}
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+##### Peticiones a la API **Optener por raza**
+``` JavaScript
+	const getDog = async (breedId) => {
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+	// Si el valor es undefined o es 0, traeros cierta condicion
+	const url = !breedId || breedId === 0 
+		? 'https://api.thedogapi.com/v1/images/search'
+		: `https://api.TheDogAPI.com/v1/images/search?breed_ids=${breedId}`
 
-### `npm test`
+	const res = await fetch(url);
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+	// Comprobamos si la peticion fue exitosa
+	if(!res.ok) {
+		const { url, status, statusText } = res;
+		throw Error(`Error: ${status} ${statusText} in fetch ${url}`);
+	}
 
-### `npm run build`
+	// Desestruturamos al primer arreglo [0]
+	const  [data] = await res.json();
+	
+	// Le colocamos un alian a la url la cual se llmara image,  
+	// Desestruturamos breeds en el primer arreglo
+	let { url: image, breeds: [breed]} = data;
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+	// Si breed no existe, cambiaemos la variable breed
+	if(!breed) {
+		breed =  {
+			id: 0,
+			name: 'Random'
+		}
+	}
+	
+	
+	const dog = {
+		image,
+		breed
+	}
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+	return dog;
+}
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
