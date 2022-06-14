@@ -8,6 +8,12 @@ const getDog = async (breedId) => {
 
 	const res = await fetch(url);
 
+	// Comprobamos si la peticion fue exitosa
+	if(!res.ok) {
+		const { url, status, statusText } = res;
+		throw Error(`Error: ${status} ${statusText} in fetch ${url}`);
+	}
+
 	// Desestruturamos al primer arreglo [0]
 	const  [data] = await res.json();
 	

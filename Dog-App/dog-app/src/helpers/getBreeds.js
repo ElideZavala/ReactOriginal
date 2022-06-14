@@ -1,6 +1,6 @@
 /* Peticion a la API DE THEDOGAPI */
 const getBreeds = async () => {
-	const url = 'https://api.thedogapi.com/v1/breedssa';
+	const url = 'https://api.thedogapi.com/v1/breeds';
 	const res = await fetch(url);
 
 	if(!res.ok) {
